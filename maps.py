@@ -8,7 +8,7 @@ from PyQt5.QtGui import QPixmap
 global_coords = ""
 global_scale = ""
 server = "https://static-maps.yandex.ru/1.x/"
-
+map_params = {"ll": global_coords, "l": "map", "z": global_scale}
 
 class Maps_Window(QMainWindow):
     def __init__(self):
@@ -66,7 +66,8 @@ class Maps_Window(QMainWindow):
         global_scale = scale
         print(global_scale)
 
-    def create_request(self):
+    def create_response(self):
+        response = requests.get(server, params=map_params)
 
 
 if __name__ == '__main__':
