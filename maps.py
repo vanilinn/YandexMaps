@@ -1,7 +1,13 @@
 import sys
+import requests
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtGui import QPixmap
+
+global_coords = ""
+global_scale = ""
+server = "https://static-maps.yandex.ru/1.x/"
 
 
 class Maps_Window(QMainWindow):
@@ -26,9 +32,11 @@ class Maps_Window(QMainWindow):
         self.coords_btn = QtWidgets.QPushButton(self.centralwidget)
         self.coords_btn.setGeometry(QtCore.QRect(50, 40, 91, 31))
         self.coords_btn.setObjectName("coords_btn")
+        self.coords_btn.clicked.connect(self.get_coords)
         self.scale_btn = QtWidgets.QPushButton(self.centralwidget)
         self.scale_btn.setGeometry(QtCore.QRect(50, 90, 91, 31))
         self.scale_btn.setObjectName("scale_btn")
+        self.scale_btn.clicked.connect(self.get_scale)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 752, 21))
@@ -47,6 +55,18 @@ class Maps_Window(QMainWindow):
         self.picture_label.setText(_translate("MainWindow", "TextLabel"))
         self.coords_btn.setText(_translate("MainWindow", "Координаты:"))
         self.scale_btn.setText(_translate("MainWindow", "Масштаб:"))
+
+    def get_coords(self):
+        coords = self.coords_line.text()
+        global_coords = coords
+        print(global_coords)
+
+    def get_scale(self):
+        scale = self.scale_line.text()
+        global_scale = scale
+        print(global_scale)
+
+    def create_request(self):
 
 
 if __name__ == '__main__':
